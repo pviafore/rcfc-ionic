@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Device</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="deviceAdd" (ngSubmit)="addDevice()">
+    <ion-item>
+      <ion-label>Device IP</ion-label>
+      <ion-input [(ngModel)]="ip" type="text" formControlName="ip"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Port</ion-label>
+      <ion-input [(ngModel)]="port" type="text" formControlName="port" value="7232"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!deviceAdd.valid">Set Device</button>    
+  </form>
+</ion-content>
