@@ -22,6 +22,8 @@ export class DevicesPage {
       port: ['', Validators.compose([Validators.required, Validators.pattern(/^\d+$/)])]
     });
 
+    this.port = 7232;
+
     this.storage.get('ip').then((val) => { this.ip = val; });
     this.storage.get('port').then((val) => { if ( this.port === undefined) { this.port = 7232; } else { this.port = val; } });
 

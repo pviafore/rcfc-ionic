@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ButtonsPage } from '../pages/buttons/buttons';
 import { DevicesPage } from '../pages/devices/devices';
+import { AboutPage } from '../pages/about/about';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -25,8 +27,9 @@ export class MyApp {
       splashScreen.hide();
     });
     this.pages = [
-      { title: "RCFC - HOME", component: ButtonsPage },
-      { title: "Device", component: DevicesPage}
+      { title: "RCFC HOME", component: ButtonsPage },
+      { title: "Device Setup", component: DevicesPage},
+      { title: "About", component: AboutPage }
     ];
   }
 
