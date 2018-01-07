@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { ToastController, LoadingController } from 'ionic-angular';
 import {Http} from '@angular/http';
 import { Storage } from '@ionic/storage';
 
@@ -14,8 +14,12 @@ export class ButtonsPage {
   url: String;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, private storage: Storage) {
+  constructor(public http: Http, private storage: Storage, public toastController: ToastController, private loadingCtrl: LoadingController) {
 
+    let loading = this.loadingCtrl.create({
+      content: 'Retrieving Buttons...'
+    });
+    loading.present();
     this.buttons = [];
     this.storage.get("ip").then(
       (ip) => { this.storage.get("port").then(
@@ -23,18 +27,32 @@ export class ButtonsPage {
           this.url = "http://" + ip + ":" + String(port);
           try {
             http.get(this.url + "/buttons").subscribe(data => {
+                loading.dismiss();
                 this.buttons = data.json().buttons;
               },
               error => {
-                console.log(error);
+                loading.dismiss();
+                this.displayError('There was an error trying to reach the device at ' + this.url);
               });
           }
           catch (e) {
-            console.log(" An error occurred " + e);
-            console.log(this.url)
+            loading.dismiss();
+            this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device');
+            
           }
-        });
-    });
+        }, () => { loading.dismiss(); this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device');} );
+    }, () => { loading.dismiss(); this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device'); });
+    
+  }
+
+  displayError(message: string) {
+    this.toastController.create({
+      message: message,
+      showCloseButton: true,
+      position: 'top',
+      dismissOnPageChange: true
+    }).present();
+    
   }
 
   itemTapped(event, button) {
