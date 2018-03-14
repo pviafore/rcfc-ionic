@@ -36,12 +36,13 @@ export class ButtonsPage {
               });
           }
           catch (e) {
-            loading.dismiss();
-            this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device');
-            
+            if (!loading.didLeave) {
+              loading.dismiss();
+              this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device' + e);
+            }
           }
-        }, () => { loading.dismiss(); this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device');} );
-    }, () => { loading.dismiss(); this.displayError('There was an error trying to retrieve buttons.  Please make sure you have a connected device'); });
+        } );
+    });
     
   }
 
