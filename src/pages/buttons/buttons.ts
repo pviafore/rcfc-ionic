@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ButtonsPage {
   buttons: Array<any>;
+  toggles: Array<any>;
   url: String;
   
 
@@ -28,7 +29,8 @@ export class ButtonsPage {
           try {
             http.get(this.url + "/buttons").subscribe(data => {
                 loading.dismiss();
-                this.buttons = data.json().buttons;
+                this.buttons = data.json().buttons.filter((b) => b.type == "button.simple");
+                this.toggles = data.json().buttons.filter((b) => b.type == "button.toggle");
               },
               error => {
                 loading.dismiss();
@@ -57,8 +59,13 @@ export class ButtonsPage {
   }
 
   itemTapped(event, button) {
-    console.log(button);
     this.http.post(this.url +"/buttons/"+button.id, {}).subscribe(error => {
+        console.log(error);
+    })
+  }
+
+  toggleTapped(event, toggle) {
+    this.http.post(this.url +"/buttons/"+toggle.id, {"value": event.checked}).subscribe(error => {
         console.log(error);
     })
   }
