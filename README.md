@@ -3,7 +3,8 @@ This is still a work in progress.
 
 Right now, this supports the following RCFC concepts:
 
-* Simple Buttons.
+* Simple Buttons
+* Toggle Buttons
 
 
 To run, download the Ionic framework and just execute ```ionic serve```
