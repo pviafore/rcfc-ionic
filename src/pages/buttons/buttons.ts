@@ -74,4 +74,14 @@ export class ButtonsPage {
         console.log(error);
     })
   }
+  
+  arrowTapped(event, arrow, direction) {
+    this.http.post(this.url + "/buttons/" + arrow.id, {"value": direction}).subscribe(error => {
+      console.log(error);
+    })
+  }
+
+  changeColor(element, color) {
+    element.color = color;
+  }
 }

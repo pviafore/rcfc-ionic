@@ -23,12 +23,12 @@
         <ion-label range-right>{{button.max}}</ion-label>
       </ion-range>
     </ion-item>
-    <ion-item *ngIf="button.type === 'input.leftright';" class="row-center">
-      {{button.text}}
-      <ion-col>
-        <ion-icon name="arrow-round-back" class="big-icon"></ion-icon>
+    <ion-item *ngIf="button.type === 'input.leftright';" class="center-col">
+      <span class="big-icon">{{button.text}}</span>
+      <ion-col >
+        <ion-icon name="arrow-round-back" class="big-icon" (click)="arrowTapped($event, button, 'left')" (touchstart)="$event.target.classList.add('blue');" (touchend)="$event.target.classList.remove('blue');" (mousedown)="$event.target.classList.add('blue');" (mouseup)="$event.target.classList.remove('blue');"></ion-icon>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <ion-icon name="arrow-round-forward" class="big-icon"></ion-icon>
+        <ion-icon name="arrow-round-forward" class="big-icon" (click)="arrowTapped($event, button, 'right')" (touchstart)="$event.target.classList.add('blue');" (touchend)="$event.target.classList.remove('blue');" (mousedown)="$event.target.classList.add('blue');" (mouseup)="$event.target.classList.remove('blue');"></ion-icon>
       </ion-col>
     </ion-item>
   </ion-list>
