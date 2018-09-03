@@ -29,8 +29,7 @@ export class ButtonsPage {
           try {
             http.get(this.url + "/buttons").subscribe(data => {
                 loading.dismiss();
-                this.buttons = data.json().buttons.filter((b) => b.type == "button.simple");
-                this.toggles = data.json().buttons.filter((b) => b.type == "button.toggle");
+                this.buttons = data.json().buttons;
               },
               error => {
                 loading.dismiss();
@@ -66,6 +65,12 @@ export class ButtonsPage {
 
   toggleTapped(event, toggle) {
     this.http.post(this.url +"/buttons/"+toggle.id, {"value": event.checked}).subscribe(error => {
+        console.log(error);
+    })
+  }
+  
+  sliderSet(event, slider) {
+    this.http.post(this.url +"/buttons/"+slider.id, {"value": event.value}).subscribe(error => {
         console.log(error);
     })
   }

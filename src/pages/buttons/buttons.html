@@ -8,15 +8,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button ion-button round full *ngFor="let button of buttons" (click)="itemTapped($event, button)">
+  
+  <ion-list *ngFor="let button of buttons" >
+    <button ion-button round full *ngIf="button.type === 'button.simple';" (click)="itemTapped($event, button)">
       {{button.text}}
     </button>
-  </ion-list>
-  <ion-list>
-    <ion-item *ngFor="let toggle of toggles" >
-      <ion-label>{{toggle.text}}</ion-label>
-      <ion-toggle checked={{toggle.state}} (ionChange)="toggleTapped($event, toggle)"></ion-toggle>
+    <ion-item *ngIf="button.type === 'button.toggle';" >
+      <ion-label>{{button.text}}</ion-label>
+      <ion-toggle checked={{button.state}} (ionChange)="toggleTapped($event, button)"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="button.type === 'input.slider';" >
+      <ion-range [(ngModel)]="button.value" min={{button.min}} max={{button.max}} pin="true" (ionChange)="sliderSet($event, button)">
+        <ion-label range-left>{{button.min}}</ion-label>
+        <ion-label range-right>{{button.max}}</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-item *ngIf="button.type === 'input.leftright';" class="row-center">
+      {{button.text}}
+      <ion-col>
+        <ion-icon name="arrow-round-back" class="big-icon"></ion-icon>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-icon name="arrow-round-forward" class="big-icon"></ion-icon>
+      </ion-col>
     </ion-item>
   </ion-list>
 </ion-content>
