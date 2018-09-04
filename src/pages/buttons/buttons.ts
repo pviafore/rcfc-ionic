@@ -60,17 +60,18 @@ export class ButtonsPage {
   }
 
   loadValues() {
-    console.log(this.group);
-    if(this.group == "All") {
-      this.visible_buttons = this.buttons;
-      this.visible_toggles = this.toggles;
-    } else if(this.group == "Unassigned") {
-      this.visible_buttons = this.buttons.filter((b) => b.groups.length == 0);
-      this.visible_toggles = this.toggles.filter((t) => t.groups.length == 0);
+    if(this.group === "All") {
+      setValues((b) => true);
+    } else if(this.group === "Unassigned") {
+      setValues((b) => b.groups.length === 0);
     } else {
-      this.visible_buttons = this.buttons.filter((b) => b.groups.includes(this.group));
-      this.visible_toggles = this.toggles.filter((t) => t.groups.includes(this.group));
+      setValues((b) => b.groups.includes(this.group));
     }
+  }
+
+  setValues(filter_condition) {
+    this.visible_buttons = this.buttons.filter(filter_condition);
+    this.visible_toggles = this.toggles.filter(filter_condition);
   }
 
   displayError(message: string) {
