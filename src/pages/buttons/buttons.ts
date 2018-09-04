@@ -61,11 +61,11 @@ export class ButtonsPage {
 
   loadValues() {
     if(this.group === "All") {
-      setValues((b) => true);
+      this.setValues((b) => true);
     } else if(this.group === "Unassigned") {
-      setValues((b) => b.groups.length === 0);
+      this.setValues((b) => b.groups.length === 0);
     } else {
-      setValues((b) => b.groups.includes(this.group));
+      this.setValues((b) => b.groups.includes(this.group));
     }
   }
 
