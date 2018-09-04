@@ -12,7 +12,7 @@ import { Storage } from '@ionic/storage';
 export class ButtonsPage {
   buttons: Array<any>;
   toggles: Array<any>;
-  groups: Array<String>;
+  groups: Set<String>;
   visible_buttons: Array<any>;
   visible_toggles: Array<any>;
   url: String;
