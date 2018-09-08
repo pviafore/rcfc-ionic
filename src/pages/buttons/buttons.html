@@ -8,12 +8,12 @@
 </ion-header>
 
 <ion-content>
-	<ion-item>
+  <ion-item *ngIf="groups.size > 0">
 		<ion-label>Group</ion-label>
 		<ion-select [(ngModel)]="group" (ionChange)="loadValues()">
 			<ion-option>All</ion-option>
-			<ion-option>Unassigned</ion-option>
 			<ion-option *ngFor="let group of groups">{{group}}</ion-option>
+			<ion-option>Unassigned</ion-option>
 		</ion-select>
 	</ion-item>
   <ion-list>
