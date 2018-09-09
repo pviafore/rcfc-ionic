@@ -102,7 +102,19 @@ export class ButtonsPage {
     })
   }
 
-  changeColor(element, color) {
-    element.color = color;
+  changeColor(color: String, colorpicker) {
+    if(color === undefined) {
+      return;
+    }
+    const colorArray = color.split(/\(|\)/)[1].split(",").map(x => parseInt(x));
+    colorpicker.state = colorArray;
+    this.http.post(this.url + "/buttons/" + colorpicker.id, {"value": colorArray}).subscribe(error => {
+      console.log(error);
+    })
+
+  }
+
+  toRgb(color: Array<number>) {
+    return "#" + color.map((c) => c.toString(16)).join("");
   }
 }

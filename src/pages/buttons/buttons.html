@@ -38,5 +38,9 @@
         <ion-icon name="arrow-round-forward" class="big-icon" (click)="arrowTapped($event, button, 'right')" (touchstart)="$event.target.classList.add('blue');" (touchend)="$event.target.classList.remove('blue');" (mousedown)="$event.target.classList.add('blue');" (mouseup)="$event.target.classList.remove('blue');"></ion-icon>
       </ion-col>
     </ion-item>
+    <ion-item *ngIf="button.type === 'input.colorpicker';">
+      {{button.text}}
+      <input [(colorPicker)]="color" [cpDialogDisplay]="'inline'" ng-readonly="true" [cpOutputFormat]="'rgba'" [style.background]="toRgb(button.state)" [cpDisableInput]="true" [cpAlphaChannel]="'disabled'" (cpSliderChange)="changeColor($event.color, button)" (colorPickerChange)="changeColor($event.color, button)"/>
+    </ion-item>
   </ion-list>
 </ion-content>
