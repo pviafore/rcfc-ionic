@@ -40,7 +40,7 @@ export class ButtonsPage {
                     this.groups.add(group);
                   });
                 });
-                this.buttons = data.json().buttons.filter((b) => b.type == "button.simple");
+                this.buttons = data.json().buttons;
                 this.loadValues();
               },
               error => {
@@ -60,17 +60,12 @@ export class ButtonsPage {
 
   loadValues() {
     if(this.group === "All") {
-      this.setValues((b) => true);
+      this.visible_buttons = this.buttons;
     } else if(this.group === "Unassigned") {
-      this.setValues((b) => b.groups.length === 0);
+      this.visible_buttons = this.buttons.filter((b) => b.groups.length === 0);
     } else {
-      this.setValues((b) => b.groups.includes(this.group));
+      this.visible_buttons = this.buttons.filter((b) => b.groups.includes(this.group));
     }
-  }
-
-  setValues(filter_condition) {
-    this.visible_buttons = this.buttons.filter(filter_condition);
-    this.visible_toggles = this.toggles.filter(filter_condition);
   }
 
   displayError(message: string) {
