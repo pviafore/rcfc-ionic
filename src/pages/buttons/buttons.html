@@ -40,7 +40,7 @@
     </ion-item>
     <ion-item *ngIf="button.type === 'input.colorpicker';">
       {{button.text}}
-      <input [(colorPicker)]="color" [cpToggle]="true" [cpDialogDisplay]="'inline'" disabled [cpOutputFormat]="'rgba'" [style.background]="toRgb(button.state)" [cpDisableInput]="true" [cpAlphaChannel]="'disabled'" (cpSliderChange)="changeColor($event.color, button)" (colorPickerChange)="changeColor($event.color, button)"/>
+      <input [(colorPicker)]="color" hidden [cpToggle]="true" [cpDialogDisplay]="'inline'" disabled [cpOutputFormat]="'rgba'" [style.background]="toRgb(button.state)" [cpDisableInput]="true" [cpAlphaChannel]="'disabled'" (cpSliderChange)="changeColor($event.color, button)" (colorPickerChange)="changeColor($event.color, button)"/>
     </ion-item>
   </ion-list>
 </ion-content>
