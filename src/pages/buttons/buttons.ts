@@ -12,8 +12,12 @@ import { Storage } from '@ionic/storage';
 export class ButtonsPage {
   buttons: Array<any>;
   toggles: Array<any>;
+  groups: Set<String>;
+  visible_buttons: Array<any>;
+  visible_toggles: Array<any>;
   url: String;
-  
+  group: String;
+
 
   constructor(public http: Http, private storage: Storage, public toastController: ToastController, private loadingCtrl: LoadingController) {
 
@@ -21,7 +25,9 @@ export class ButtonsPage {
       content: 'Retrieving Buttons...'
     });
     loading.present();
+    this.group = "All";
     this.buttons = [];
+    this.groups = new Set();
     this.storage.get("ip").then(
       (ip) => { this.storage.get("port").then(
         (port) => {
@@ -29,7 +35,13 @@ export class ButtonsPage {
           try {
             http.get(this.url + "/buttons").subscribe(data => {
                 loading.dismiss();
-                this.buttons = data.json().buttons;
+                data.json().buttons.forEach(button => {
+                  button.groups.forEach(group => {
+                    this.groups.add(group);
+                  });
+                });
+                this.buttons = data.json().buttons.filter((b) => b.type == "button.simple");
+                this.loadValues();
               },
               error => {
                 loading.dismiss();
@@ -44,7 +56,21 @@ export class ButtonsPage {
           }
         } );
     });
-    
+  }
+
+  loadValues() {
+    if(this.group === "All") {
+      this.setValues((b) => true);
+    } else if(this.group === "Unassigned") {
+      this.setValues((b) => b.groups.length === 0);
+    } else {
+      this.setValues((b) => b.groups.includes(this.group));
+    }
+  }
+
+  setValues(filter_condition) {
+    this.visible_buttons = this.buttons.filter(filter_condition);
+    this.visible_toggles = this.toggles.filter(filter_condition);
   }
 
   displayError(message: string) {
@@ -54,7 +80,7 @@ export class ButtonsPage {
       position: 'top',
       dismissOnPageChange: true
     }).present();
-    
+
   }
 
   itemTapped(event, button) {

@@ -8,8 +8,15 @@
 </ion-header>
 
 <ion-content>
-  
-  <ion-list *ngFor="let button of buttons" >
+  <ion-item *ngIf="groups.size > 0">
+		<ion-label>Group</ion-label>
+		<ion-select [(ngModel)]="group" (ionChange)="loadValues()">
+			<ion-option>All</ion-option>
+			<ion-option *ngFor="let group of groups">{{group}}</ion-option>
+			<ion-option>Unassigned</ion-option>
+		</ion-select>
+	</ion-item>
+  <ion-list *ngFor="let button of visible_buttons" >
     <button ion-button round full *ngIf="button.type === 'button.simple';" (click)="itemTapped($event, button)">
       {{button.text}}
     </button>
