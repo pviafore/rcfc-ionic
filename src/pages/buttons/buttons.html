@@ -25,7 +25,7 @@
       <ion-toggle checked={{button.state}} (ionChange)="toggleTapped($event, button)"></ion-toggle>
     </ion-item>
     <ion-item *ngIf="button.type === 'input.slider';" >
-      <ion-range [(ngModel)]="button.value" min={{button.min}} max={{button.max}} pin="true" (ionChange)="sliderSet($event, button)">
+      <ion-range [(ngModel)]="button.state" min={{button.min}} max={{button.max}} pin="true" (ionChange)="sliderSet($event, button)">
         <ion-label range-left>{{button.min}}</ion-label>
         <ion-label range-right>{{button.max}}</ion-label>
       </ion-range>
